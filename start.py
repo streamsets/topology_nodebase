@@ -1,13 +1,11 @@
-from clusterdock.models import Cluster, Node, NodeGroup
+from clusterdock.models import Cluster, Node
 
 
 def main(args):
-    image = '{}/topology_nodebase:{}'.format('/'.join(args.registry, args.namespace)
-                                             if args.registry
-                                             else args.namespace,
-                                             args.operating_system)
+    image = '{}/{}/topology_nodebase:{}'.format(args.registry,
+                                                args.namespace,
+                                                args.operating_system)
 
-    cluster = Cluster(NodeGroup(name='nodes',
-                                nodes=[Node(hostname=hostname, image=image)
-                                       for hostname in args.nodes]))
+    cluster = Cluster(*[Node(hostname=hostname, group='nodes', image=image)
+                        for hostname in args.nodes])
     cluster.start(args.network)
