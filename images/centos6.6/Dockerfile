@@ -37,12 +37,12 @@ RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys && \
 # simultaneously. Simple solution (and one done by the lxc-centos.in template) is to simply
 # not trigger it. The other is the inclusion of the 90-nproc.conf file, which overrides reasonable
 # defaults for things like the maximum number of user processes when running commands as a non-root
-# user. Get rid of it (and see tinyurl.com/zqdfzpg). Lastly, we get rid of /etc/sysconfig/network
-# to avoid sourcing of the file by /etc/rc.d/rc.sysinit causing issues with the hostname (see
+# user. Get rid of it (and see tinyurl.com/zqdfzpg). Lastly, we edit /etc/sysconfig/network
+# to fix issues with the hostname being overriden from what Docker sets (see
 # https://github.com/moby/moby/issues/31199).
 RUN sed -i 's|/sbin/start_udev||' /etc/rc.d/rc.sysinit && \
     rm /etc/security/limits.d/90-nproc.conf && \
-    rm /etc/sysconfig/network
+    sed -i '/HOSTNAME/d' /etc/sysconfig/network
 
 # Disable strict host key checking and set the known hosts file to /dev/null to make
 # SSH between containers less of a pain.
