@@ -18,7 +18,7 @@ with the ``clusterdock`` script:
 .. code-block:: console
 
     $ git clone https://github.com/clusterdock/topology_nodebase.git
-    $ clusterdock topology_nodebase start
+    $ clusterdock start topology_nodebase
     2017-08-04 09:10:33 AM clusterdock.models   INFO     Starting cluster on network (cluster) ...
     2017-08-04 09:10:33 AM clusterdock.models   INFO     Starting node node-1.cluster ...
     2017-08-04 09:10:33 AM clusterdock.models   INFO     Starting node node-2.cluster ...
@@ -28,7 +28,7 @@ To see full usage instructions for the ``start`` action, use ``-h``/``--help``:
 
 .. code-block:: console
 
-    $ clusterdock topology_nodebase start -h
+    $ clusterdock start topology_nodebase -h
     usage: clusterdock start [-h] [--node-disks map] [--always-pull]
                              [--namespace ns] [--network nw] [-o sys] [-r url]
                              [--nodes node [node ...]]
@@ -44,7 +44,7 @@ To see full usage instructions for the ``start`` action, use ``-h``/``--help``:
       --always-pull         Pull latest images, even if they're available locally
                             (default: False)
       --namespace ns        Namespace to use when looking for images (default:
-                            clusterdock)
+                            None)
       --network nw          Docker network to use (default: cluster)
       -o sys, --operating-system sys
                             Operating system to use for cluster nodes (default:

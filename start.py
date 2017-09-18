@@ -13,10 +13,12 @@
 
 from clusterdock.models import Cluster, Node
 
+DEFAULT_NAMESPACE = 'clusterdock'
+
 
 def main(args):
     image = '{}/{}/topology_nodebase:{}'.format(args.registry,
-                                                args.namespace,
+                                                args.namespace or DEFAULT_NAMESPACE,
                                                 args.operating_system)
 
     cluster = Cluster(*[Node(hostname=hostname, group='nodes', image=image)
