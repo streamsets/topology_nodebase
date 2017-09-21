@@ -14,12 +14,13 @@
 from clusterdock.models import Cluster, Node
 
 DEFAULT_NAMESPACE = 'clusterdock'
+DEFAULT_OPERATING_SYSTEM = 'centos6.6'
 
 
 def main(args):
     image = '{}/{}/topology_nodebase:{}'.format(args.registry,
                                                 args.namespace or DEFAULT_NAMESPACE,
-                                                args.operating_system)
+                                                args.operating_system or DEFAULT_OPERATING_SYSTEM)
 
     cluster = Cluster(*[Node(hostname=hostname, group='nodes', image=image)
                         for hostname in args.nodes])
