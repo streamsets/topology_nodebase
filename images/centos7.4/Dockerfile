@@ -25,7 +25,8 @@ rm -f /lib/systemd/system/basic.target.wants/*;\
 rm -f /lib/systemd/system/anaconda.target.wants/*;
 
 # Install useful things that are missing from the centos:7.4.1708 image.
-RUN yum install -y openssh-clients \
+RUN yum install -y initscripts \
+    openssh-clients \
     openssh-server \
     rsyslog \
     sudo \
