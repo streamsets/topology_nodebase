@@ -13,6 +13,10 @@
 FROM centos:7.4.1708
 ENV container docker
 
+# Update baseurl on all repos files
+RUN sed -i -e "s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g" /etc/yum.repos.d/CentOS-*
+RUN sed -i -e "s|mirrorlist|#mirrorlist|g" /etc/yum.repos.d/CentOS-*
+
 # Delete a number of unit files which might cause issues.
 RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
 systemd-tmpfiles-setup.service ] || rm -f $i; done); \
