@@ -26,6 +26,9 @@ RUN yum install -y openssh-clients \
     yum clean all
 
 # Add pre-created SSH keys into .ssh folder.
+# The ssh keys have been removed from this repository to address security concerns. Please pull the id_rsa and
+# id_rsa.pub from Vault and copy them into the ssh folder before building this docker image:
+# https://ss-vault.streamsets.net/ui/vault/secrets/automation/list/topology_nodebase/
 ADD ssh /root/.ssh/
 
 # Copy public key into authorized_keys and limit access to the private key to ensure SSH can use it.
