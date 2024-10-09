@@ -11,7 +11,7 @@
 # limitations under the License.
 
 FROM centos:7.4.1708
-ENV container docker
+ENV container podman
 
 # Update baseurl on all repos files
 RUN sed -i -e "s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g" /etc/yum.repos.d/CentOS-*
@@ -40,7 +40,7 @@ RUN yum install -y initscripts \
 
 # Add pre-created SSH keys into .ssh folder.
 # The ssh keys have been removed from this repository to address security concerns. Please pull the id_rsa and
-# id_rsa.pub from Vault and copy them into the ssh folder before building this docker image:
+# id_rsa.pub from Vault and copy them into the ssh folder before building this container image:
 # https://ss-vault.streamsets.net/ui/vault/secrets/automation/list/topology_nodebase/
 ADD ssh /root/.ssh/
 
@@ -48,7 +48,7 @@ ADD ssh /root/.ssh/
 RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys && \
     chmod 600 /root/.ssh/id_rsa
 
-# The official CentOS Docker images retain the inclusion of the 20-nproc.conf file that only applies on a real machine.
+# The official CentOS images retain the inclusion of the 20-nproc.conf file that only applies on a real machine.
 # This file overrides reasonable defaults for things like the maximum number of user processes when running commands
 # as a non-root user. Get rid of it (and see tinyurl.com/zqdfzpg).
 RUN rm /etc/security/limits.d/20-nproc.conf
